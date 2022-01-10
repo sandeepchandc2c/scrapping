@@ -4,8 +4,8 @@ exports.createSession = async function (req, res, next) {
   const currentUser = await User.find({ email: req.body.email });
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
-    success_url: `${req.protocol}://${req.host}/`,
-    cancel_url: `${req.protocol}://${req.host}/`,
+    success_url: `${req.protocol}://${req.hostname}/`,
+    cancel_url: `${req.protocol}://${req.hostname}/`,
     customer_email: currentUser.email,
     client_reference_id: req.param.userId,
     line_items: [

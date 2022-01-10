@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 
+const cors = require("cors");
 const axios = require("axios");
 const { wrapper } = require("axios-cookiejar-support");
 const express = require("express");
@@ -14,11 +15,11 @@ mongoose
   .then(() => console.log("finally we are connected"))
   .catch((err) => console.log(err.message));
 
-app.use(express.json());
 const htmlparser2 = require("htmlparser2");
 const fs = require("fs");
 var HTMLParser = require("node-html-parser");
 app.use(express.json({ limit: "50mb" }));
+app.use(cors());
 app.post("/data", async (req, res) => {
   try {
     fs.writeFileSync(__dirname + "/abc.html", req.body.html);
